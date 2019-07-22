@@ -1,7 +1,7 @@
 # POS
 Point Of Sales Console Application With Node.js
 
-#dependencies
+# Dependencies
 Nodejs https://nodejs.org/en/
 
 # Run
