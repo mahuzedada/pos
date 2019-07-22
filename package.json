@@ -1,0 +1,21 @@
+{
+  "name": "pos",
+  "version": "0.0.1",
+  "description": "Point Of Sale",
+  "main": "pos.js",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "csv-parser": "^2.3.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/chatissantos/pos.git"
+  },
+  "author": "Chatis Santos (chatis@becurity.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chatissantos/pos/issues"
+  },
+  "homepage": "https://github.com/chatissantos/pos#readme"
+}
