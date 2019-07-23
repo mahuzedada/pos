@@ -45,7 +45,7 @@ function startTransaction() {
     takeProductInput();
 }
 function processInput(input) {
-    if (input === 'total' || input === '') {
+    if (input === 'total') {
         runTotal();
     } else {
         processProductId(input);
