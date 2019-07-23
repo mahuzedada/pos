@@ -47,7 +47,7 @@ function startTransaction() {
     });
 }
 function processInput(input) {
-    if (input === 'total') {
+    if (input === 'total' || input === '') {
         runTotal();
     } else {
         processProductId(input);
