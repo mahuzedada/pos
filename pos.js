@@ -42,9 +42,7 @@ function startTransaction() {
     console.log('=====================================');
     console.log('\n\n');
     console.log('----Ringing Products----');
-    rl.question('Product ID: ', (answer) => {
-        processInput(answer);
-    });
+    takeProductInput();
 }
 function processInput(input) {
     if (input === 'total' || input === '') {
@@ -68,9 +66,7 @@ function processProductId(productId) {
             }
             break;
     }
-    rl.question('Product ID: ', (answer) => {
-        processInput(answer);
-    });
+    takeProductInput();
 }
 function search(productId) {
     return products.filter(product => {
@@ -83,9 +79,7 @@ function runProduct(product) {
 }
 function runTotal() {
     if (cart.length === 0) {
-        rl.question('Product ID: ', (answer) => {
-            processInput(answer);
-        });
+        takeProductInput();
         return;
     }
     console.log('\n\n');
@@ -99,9 +93,7 @@ function runTotal() {
     console.log('Subtotal:\t\t\t', subtotal);
     console.log('Tax:\t\t\t', totalTax);
     console.log('Total:\t\t\t', total);
-    rl.question('Amount Paid: ', (answer) => {
-        processCustomerAmountPaid(parseFloat(answer));
-    });
+    takeCustomerAmountPaidInput();
 }
 function processCustomerAmountPaid(amount) {
     amountPaidByCustomer = amount;
@@ -146,4 +138,14 @@ function getTax(price, category) {
         city: cityTax,
         total: stateTax + countyTax + cityTax
     };
+}
+function takeProductInput() {
+    rl.question('Product ID: ', (answer) => {
+        processInput(answer);
+    });
+}
+function takeCustomerAmountPaidInput() {
+    rl.question('Amount Paid: ', (answer) => {
+        processCustomerAmountPaid(parseFloat(answer));
+    });
 }
