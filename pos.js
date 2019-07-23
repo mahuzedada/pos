@@ -82,6 +82,12 @@ function runProduct(product) {
     console.log(product.name, '\t\t', product.price);
 }
 function runTotal() {
+    if (cart.length === 0) {
+        rl.question('Product ID: ', (answer) => {
+            processInput(answer);
+        });
+        return;
+    }
     console.log('\n\n');
     console.log('----Running Total----');
     subtotal = cart.reduce((accumulator, currentValue) => accumulator + currentValue.price, 0);
