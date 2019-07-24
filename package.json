@@ -9,9 +9,13 @@
     "typescript": "^3.5.3"
   },
   "scripts": {
-    "tsc": "tsc"
+    "build": "tsc",
+    "test": "mocha",
+    "start": "node ./dist/main.js"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^6.2.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/chatissantos/pos.git"
