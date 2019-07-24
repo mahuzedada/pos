@@ -1,5 +1,4 @@
 const readline = require('readline');
-const cTable = require('console.table');
 const csv = require('csv-parser');
 const fs = require('fs');
 import {Product} from './model';
@@ -38,10 +37,10 @@ function startTransaction() {
     totalCountyTax = 0;
     totalCityTax = 0;
     total = 0;
+    console.log('\n\n');
     console.log('=====================================');
     console.log('          New Transaction');
     console.log('=====================================');
-    console.log('\n\n');
     console.log('----Ringing Products----');
     takeProductInput();
 }
@@ -91,9 +90,9 @@ function runTotal() {
     totalCountyTax = cart.reduce((accumulator, currentValue) => accumulator + currentValue.tax.county, 0);
     totalCityTax = cart.reduce((accumulator, currentValue) => accumulator + currentValue.tax.city, 0);
     total = subtotal + totalTax;
-    console.log('Subtotal:\t\t\t', subtotal);
-    console.log('Tax:\t\t\t', totalTax);
-    console.log('Total:\t\t\t', total);
+    console.log('Subtotal:\t\t\t\t\t', subtotal);
+    console.log('Tax:\t\t\t\t\t\t', totalTax);
+    console.log('Total:\t\t\t\t\t\t', total);
     takeCustomerAmountPaidInput();
 }
 function processCustomerAmountPaid(amount: number) {
@@ -112,17 +111,17 @@ function endTransaction() {
             Price: product.price,
             'Tax Category': product.category
         });
+        console.log(product.id, ' ', product.name, ' (', product.category, ')\t\t\t', product.price);
     }
-    const table = cTable.getTable(itemLines);
-    console.log(table);
-    console.log('Subtotal:\t\t\t', subtotal);
-    console.log('State Tax:\t\t\t', totalStateTax);
-    console.log('County Tax:\t\t\t', totalCountyTax);
-    console.log('City Tax:\t\t\t', totalCityTax);
-    console.log('Total Tax:\t\t\t', totalTax);
-    console.log('Total:\t\t\t', total);
-    console.log('AmountPaid:\t\t\t', amountPaidByCustomer);
-    console.log('Change Due:\t\t\t', customerChange);
+    console.log('\n');
+    console.log('Subtotal:\t\t\t\t\t\t', subtotal);
+    console.log('State Tax:\t\t\t\t\t\t', totalStateTax);
+    console.log('County Tax:\t\t\t\t\t\t', totalCountyTax);
+    console.log('City Tax:\t\t\t\t\t\t', totalCityTax);
+    console.log('Total Tax:\t\t\t\t\t\t', totalTax);
+    console.log('Total:\t\t\t\t\t\t\t', total);
+    console.log('AmountPaid:\t\t\t\t\t\t', amountPaidByCustomer);
+    console.log('Change Due:\t\t\t\t\t\t', customerChange);
     startTransaction();
 }
 function getTax(price: number, category: string) {
