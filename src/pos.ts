@@ -2,6 +2,7 @@ const readline = require('readline');
 const cTable = require('console.table');
 const csv = require('csv-parser');
 const fs = require('fs');
+import {Product} from './model';
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -10,8 +11,8 @@ const rl = readline.createInterface({
 });
 
 
-const products = [];
-let cart = [];
+const products: Array<Product> = [];
+let cart: Array<Product> = [];
 let subtotal = 0;
 let totalTax = 0;
 let totalStateTax = 0;
@@ -20,10 +21,10 @@ let totalCityTax = 0;
 let total = 0;
 let amountPaidByCustomer = 0;
 let customerChange = 0;
-fs.createReadStream('products.csv')
+fs.createReadStream('./resources/products.csv')
     .pipe(csv())
-    .on('data', (data) => {
-        products.push({...data, price: parseFloat(data.price), tax: getTax(data.price, data.category)});
+    .on('data', (data: Product) => {
+        products.push({...data, price: parseFloat(data.price.toString()), tax: getTax(data.price, data.category)});
     })
     .on('end', () => {
         console.log('POS is Ready!!');
@@ -44,14 +45,14 @@ function startTransaction() {
     console.log('----Ringing Products----');
     takeProductInput();
 }
-function processInput(input) {
+function processInput(input: string) {
     if (input === 'total') {
         runTotal();
     } else {
         processProductId(input);
     }
 }
-function processProductId(productId) {
+function processProductId(productId: string) {
     const results = search(productId);
     switch (results.length) {
         case 0:
@@ -68,12 +69,12 @@ function processProductId(productId) {
     }
     takeProductInput();
 }
-function search(productId) {
+function search(productId: string) {
     return products.filter(product => {
         return product.id.startsWith(productId)
     });
 }
-function runProduct(product) {
+function runProduct(product: Product) {
     cart.push(product);
     console.log(product.name, '\t\t', product.price);
 }
@@ -95,7 +96,7 @@ function runTotal() {
     console.log('Total:\t\t\t', total);
     takeCustomerAmountPaidInput();
 }
-function processCustomerAmountPaid(amount) {
+function processCustomerAmountPaid(amount: number) {
     amountPaidByCustomer = amount;
     customerChange = amount - total;
     endTransaction();
@@ -104,7 +105,7 @@ function endTransaction() {
     console.log('\n\n');
     console.log('----Receipt----');
     const itemLines = [];
-    for (product of cart) {
+    for (let product of cart) {
         itemLines.push({
             ProductID: product.id,
             Description: product.name,
@@ -124,7 +125,7 @@ function endTransaction() {
     console.log('Change Due:\t\t\t', customerChange);
     startTransaction();
 }
-function getTax(price, category) {
+function getTax(price: number, category: string) {
     const stateTaxRate = .063;
     const countyTaxRate = .007;
     const cityTaxRate = .02;
@@ -140,12 +141,12 @@ function getTax(price, category) {
     };
 }
 function takeProductInput() {
-    rl.question('Product ID: ', (answer) => {
+    rl.question('Product ID: ', (answer: string) => {
         processInput(answer);
     });
 }
 function takeCustomerAmountPaidInput() {
-    rl.question('Amount Paid: ', (answer) => {
+    rl.question('Amount Paid: ', (answer: string) => {
         processCustomerAmountPaid(parseFloat(answer));
     });
 }

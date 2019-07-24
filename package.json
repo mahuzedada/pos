@@ -2,10 +2,14 @@
   "name": "pos",
   "version": "0.0.1",
   "description": "Point Of Sale",
-  "main": "pos.js",
+  "main": "src/pos.ts",
   "dependencies": {
-    "console.table": "^0.10.0",
-    "csv-parser": "^2.3.0"
+    "@types/node": "^12.6.8",
+    "csv-parser": "^2.3.0",
+    "typescript": "^3.5.3"
+  },
+  "scripts": {
+    "tsc": "tsc"
   },
   "devDependencies": {},
   "repository": {
